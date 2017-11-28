@@ -81,7 +81,7 @@ def runApriori(data_iter, minSupport, minConfidence):
     currentLSet = oneCSet
     k = 2
     while(currentLSet != set([])):
-        largeSet[k-1] = currentLSet
+        largeSet[k - 1] = currentLSet
         currentLSet = joinSet(currentLSet, k)
         currentCSet = returnItemsWithMinSupport(currentLSet,
                                                 transactionList,
@@ -92,7 +92,7 @@ def runApriori(data_iter, minSupport, minConfidence):
 
     def getSupport(item):
             """local function which Returns the support of an item"""
-            return float(freqSet[item])/len(transactionList)
+            return float(freqSet[item]) / len(transactionList)
 
     toRetItems = []
     for key, value in largeSet.items():
@@ -115,12 +115,12 @@ def runApriori(data_iter, minSupport, minConfidence):
 
 def printResults(items, rules):
     """prints the generated itemsets sorted by support and the confidence rules sorted by confidence"""
-    for item, support in sorted(items, key=lambda (item, support): support):
-        print "item: %s , %.3f" % (str(item), support)
-    print "\n------------------------ RULES:"
-    for rule, confidence in sorted(rules, key=lambda (rule, confidence): confidence):
+    for item, support in sorted(items, key = lambda item, support : support):
+        print ("item: %s , %.3f" % (str(item), support))
+    print ("\n------------------------ RULES:")
+    for rule, confidence in sorted(rules, key=lambda rule, confidence: confidence):
         pre, post = rule
-        print "Rule: %s ==> %s , %.3f" % (str(pre), str(post), confidence)
+        print ("Rule: %s ==> %s , %.3f" % (str(pre), str(post), confidence))
 
 
 def dataFromFile(fname):
@@ -158,7 +158,7 @@ if __name__ == "__main__":
     elif options.input is not None:
             inFile = dataFromFile(options.input)
     else:
-            print 'No dataset filename specified, system with exit\n'
+            print ('No dataset filename specified, system with exit\n')
             sys.exit('System will exit')
 
     minSupport = options.minS
