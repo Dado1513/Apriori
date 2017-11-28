@@ -95,12 +95,12 @@ def runApriori(data_iter, minSupport, minConfidence):
             return float(freqSet[item]) / len(transactionList)
 
     toRetItems = []
-    for key, value in largeSet.items():
+    for key, value in list(largeSet.items()):
         toRetItems.extend([(tuple(item), getSupport(item))
                            for item in value])
 
     toRetRules = []
-    for key, value in largeSet.items()[1:]:
+    for key, value in list(largeSet.items())[1:]:
         for item in value:
             _subsets = map(frozenset, [x for x in subsets(item)])
             for element in _subsets:
@@ -115,10 +115,12 @@ def runApriori(data_iter, minSupport, minConfidence):
 
 def printResults(items, rules):
     """prints the generated itemsets sorted by support and the confidence rules sorted by confidence"""
-    for item, support in sorted(items, key = lambda item, support : support):
+    # args = item,support ->_ return support
+    for item, support in sorted(items, key = lambda args : args[1]):
         print ("item: %s , %.3f" % (str(item), support))
     print ("\n------------------------ RULES:")
-    for rule, confidence in sorted(rules, key=lambda rule, confidence: confidence):
+    # args = rule,confidense --> return confidence
+    for rule, confidence in sorted(rules, key=lambda args: args[1]):
         pre, post = rule
         print ("Rule: %s ==> %s , %.3f" % (str(pre), str(post), confidence))
 
